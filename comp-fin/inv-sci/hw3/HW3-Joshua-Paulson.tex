@@ -1,0 +1,104 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{fullpage}
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+
+\pdfpagewidth 8.5in
+\pdfpageheight 11in
+
+\title{AMATH 500/STAT 591A: Homework 3}
+\author{Joshua Paulson}
+\date{01 - November - 2010}
+
+\begin{document}
+\maketitle{\textbf{}}\\
+Problem Number 1)\\
+For this we use the formula for the standard error on the Sharpe Ratio Estimate: $\sqrt{\frac{1 + \frac{1}{2} SR^{2}}{n}}$\\
+(This only works because the skew-ness and kurtosis are both zero)\\
+Thus since the SR = 2 and we have 4 years of monthly returns, we get:\\ $\sqrt{\frac{1 + \frac{1}{2} 2^{2}}{48}}$ = 
+$\sqrt{\frac{1 + \frac{1}{2} 4}{48}}$ = 
+$\sqrt{\frac{1 + 2}{48}}$ = 
+$\sqrt{\frac{3}{48}} = 0.25$\\
+
+
+Now when the skew-ness and kurtosis are 0 and 5, we need to use the following formula:\\
+$Var(SR_{est}) = 1 + \frac{k + 2}{4} SR^{2} - \frac{\mu_{3}}{\sigma^{3}} SR$\\
+Thus we get:\\
+$Var(SR_{est}) = 1 + \frac{5 + 2}{4} 2^{2} - 0 (2)$\\
+$Var(SR_{est}) = 1 + \frac{7}{4} 4 $\\
+$Var(SR_{est}) = 1 + 7$\\
+$Var(SR_{est}) = 8$\\
+Now dividing this by n and taking the square root, we get the standard error:\\
+$\sqrt{8/48}$ = $\sqrt{\frac{1}{6}}$\\
+
+Problem Number 2)\\
+Using the single factor model where $\alpha = 0$ and thus $r_{t} = \beta r_{m,t} + \epsilon_{t}, t = 1, ..., T$\\
+As shown in the lecture slides, the standard error of beta equals:\\
+$s.e.(\hat{\beta_{i}}) = \hat{\sigma_{\epsilon}} \sqrt{((x^{'}x)^{-1})_{ii}}$\\
+Since there is no $\alpha$, $x'x = \sum_{t = 1}^{T} r_{mt}^{2}$ and $(x^{'}x)^{-1} = \frac{1}{\sum_{t = 1}^{T} r_{mt}^{2}}$\\
+Now we can seperate $\sum_{t = 1}^{T} r_{mt}^{2}$ into the sum of the sample variance and a function of the sample mean.\\
+$\sum_{t=1}^{T} (r_{i} - \bar{r}_{i})^{2} \frac{\bar{r}_{i}}{(r_{i} - \bar{r}_{i})} + (r_{i} \bar{r}_{i})$\\
+Where:\\
+$\bar{\sigma}_{t}^{2} = \frac{1}{T-1} \sum_{t=1}^{T} (r_{t} - \bar{r}_{t}) = \frac{1}{T-1} \sum_{t=1}^{T} (r_{t}^{2} - 2\bar{r}_{t} r_{t} + \bar{r}_{t}^{2})$\\
+and\\
+$\bar{r}_{t} = \frac{1}{n} \sum_{t=1}^{T}r_{t}$\\
+Thus:\\
+$s.e.(\hat{\beta_{i}}) = \hat{\sigma_{\epsilon}} \sqrt{\frac{1}{\bar{\sigma}_{t}^{2} \bar{r}_{i} \frac{1}{(r_{i} - \bar{r}_{i})} + (r_{i} \bar{r}_{i})}}$\\
+
+Thus we are able to see that as the volatility of the market returns increases (the sample variance), it will create a smaller value under the square root, and an even smaller value after the square root. Thus the overall error will go towards zero as the volatility increaes resulting in a more precise OLS estimate of $\beta$.\\
+
+Previous attempt:\\
+if $E(r_{m}^{2}) = \frac{1}{T} \sum_{t = 1}^{T} r_{mt}^{2}$, then $\sum_{t = 1}^{T} r_{mt}^{2} = T E(r_{m}^{2})$\\
+and if $var(r_{m}^{2}) = E(r_{m}^{2}) - E(r_{m})^{2}$, then $\sum_{t = 1}^{T} r_{mt}^{2} = T E[var(r_{m}^{2}) + E(r_{m})^{2}]$\\
+Thus,\\
+$s.e.(\hat{\beta_{i}}) = \hat{\sigma_{\epsilon}} \sqrt{\frac{1}{T E[var(r_{m}^{2}) + E(r_{m})^{2}]}}$\\
+
+Thus we are able to see that as the volatility of the market returns increases (the sample variance), it will create a smaller value under the square root, and an even smaller value after the square root. Thus the overall error will go towards zero as the volatility increaes resulting in a more precise OLS estimate of $\beta$.\\
+
+Problem Number 3)\\
+Using L'Hopital's rule on the power utility function, we take the derivative of the top and bottom with respect to $\gamma$.\\
+
+$U(w) = lim_{\gamma \rightarrow 0}$ $\frac{w^{\gamma}-1}{\gamma} = lim_{\gamma \rightarrow 0}$ $\frac{w ^{\gamma}*log(w) - 0}{1}$ (and log(w) is the natural log)\\
+Thus as $\gamma \rightarrow 0$ we see that $\frac{1*log(w)}{1} = log(w)$ which shows that log(w) is the limiting form of the power utility function.\\
+
+Problem Number 4\\
+To find the certainty equivalent of the job offer, we first find E[U(x)]\\
+
+$E[U(x)] = \frac{1}{7}*[(80000+0)^{1/4}+(80000+10000)^{1/4}+(80000+20000)^{1/4}+(80000+30000)^{1/4}+(80000+40000)^{1/4}+(80000+50000)^{1/4}+(80000+60000)^{1/4}] = 18.15380$\\
+
+Then to compute the income for the certainty equivalent,\\
+$x^{1/4} = 18.15380$\\
+$x = 18.15380^{4} = \$ 108,610.10$\\
+
+Problem Number 5\\
+To approach this problem, we need to show that no matter what the inital wealth level, w, the investor will evaluate the incremental investment the same. To do this we compute the degree of risk aversion by the Arrow-Pratt absolute risk aversion coefficient.\\
+$a(x) = \frac{U^{''}(x)}{U^{'}(s)}$\\
+
+Thus,
+$U^{'}(s) = \frac{\delta}{\delta x} (-e^{-ax}) = a e^{-ax}$\\
+$U^{''}(x) = \frac{\delta}{\delta x} (a e^{-ax}) = -a^{2} e^{-ax}$\\
+$a(x) = a$\\
+
+This shows that the risk aversion is irrespective of wealth since a is a constant.\\
+
+Problem Number 6\\
+We need to maximize the expected value of the utility function where the first investor has unit wealth and the friend has wealth w. Thus:\\
+$U(x) = ax - \frac{bx^{2}}{2}$\\
+$U'(x) = a - bx$\\
+$E(u'(x)) = a - bE(x)$ where x = the investor's weatlth.\\
+The first investor has wealth (x = 1)\\
+$E(u'(1)) = a - bE(1) = a - b$\\
+and the friend has (x = w) with the same utility function\\
+$E(u'(w)) = a - b'E(w) = a - b'(w)$\\
+We know these equations are equal and can then solve for b'\\
+$a - b = a - b'(w)$\\
+$b = b'w$\\
+$b' = \frac{b}{w}$\\
+
+Bonus Problem\\
+We know that for the standard normal distribution will have mean zero ($\mu = 0$) and standard deviation 1 ($\sigma = 1$)\\
+
+\end{document}

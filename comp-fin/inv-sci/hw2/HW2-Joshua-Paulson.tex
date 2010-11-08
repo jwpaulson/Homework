@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{fullpage}
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+
+\pdfpagewidth 8.5in
+\pdfpageheight 11in
+
+\title{AMATH 500/STAT 591A: Homework 2}
+\author{Joshua Paulson}
+\date{22 - October - 2010}
+
+\begin{document}
+\maketitle{\textbf{}}\\
+Problem Number 1)\\
+We need to minimize the sum of squared residuals, thus:\\
+$\sum_{t=1}^{T} (r_{t} - \alpha - \beta r_{\beta,t})^2$ = RSS\\
+take each with respect to $\alpha$ and $\beta$ and set equal to zero\\
+$\frac{\delta RSS}{\delta \alpha}$ = $-2 \sum_{t=1}^{T} (r_{t} - \alpha - \beta r_{\beta,t})$ = 0\\
+= $\sum_{t=1}^{T} (r_{t} - \alpha - \beta r_{\beta,t})$\\
+= $\sum_{t=1}^{T} r_{t} - \sum_{t=1}^{T} \alpha - \sum_{t=1}^{T} \beta r_{\beta,t}$\\
+$\sum_{t=1}^{T} r_{t} - \sum_{t=1}^{T} \beta r_{\beta,t}$ = $\sum_{t=1}^{T} \alpha$\\
+since sum of a constant equals the constant,\\
+$\sum_{t=1}^{T} r_{t} - \beta \sum_{t=1}^{T} r_{\beta,t}$ = $\alpha$\\
+since $\sum_{t=1}^{T} r_{t} = \bar{r}$ and $\sum_{t=1}^{T} r_{\beta,t} = \bar{r}_{\beta}$\\
+$\hat{\alpha} = \bar{r} - \hat{\beta} \bar{r}_{\beta}$\\
+
+$\frac{\delta RSS}{\delta \beta}$ = $-2 \sum_{t=1}^{T} (r_{\beta,t} (r_{t} - \alpha - \beta r_{\beta,t}))$ = 0\\
+= $\sum_{t=1}^{T} (r_{\beta,t} (r_{t} - \alpha - \beta r_{\beta,t}))$\\
+= $\sum_{t=1}^{T} (r_{\beta,t} (r_{t} - (\bar{r} - \beta \bar{r}_{\beta}) - \beta r_{\beta,t}))$\\
+= $\sum_{t=1}^{T} r_{\beta,t} ((r_{t} - \bar{r} + \beta \bar{r}_{\beta} - \beta r_{\beta,t}))$\\
+= $\sum_{t=1}^{T} r_{\beta,t} ((r_{t} - \bar{r} - \beta (-\bar{r}_{\beta} + r_{\beta,t})))$\\
+= $\sum_{t=1}^{T} r_{\beta,t} (r_{t} - \bar{r}) - \sum_{t=1}^{T} r_{\beta,t} \beta (r_{\beta,t} - \bar{r}_{\beta})$\\
+= $\sum_{t=1}^{T} r_{\beta,t} (r_{t} - \bar{r}) = \beta \sum_{t=1}^{T} r_{\beta,t} (r_{\beta,t} - \bar{r}_{\beta})$\\
+= $\beta = \frac{\sum_{t=1}^{T} r_{\beta,t} (r_{t} - \bar{r})}{\sum_{t=1}^{T} r_{\beta,t} (r_{\beta,t} - \bar{r}_{\beta})}$\\
+= $\beta = \frac{\sum_{t=1}^{T} [(r_{\beta,t} - \bar{r}_{\beta}) + \bar{r}_{\beta}] (r_{t} - \bar{r})}{\sum_{t=1}^{T} [(r_{\beta,t} - \bar{r}_{\beta}) + \bar{r}_{\beta}] (r_{\beta,t} - \bar{r}_{\beta})}$\\
+= $\beta = \frac{\sum_{t=1}^{T} (r_{\beta,t} - \bar{r}_{\beta})(r_{t} - \bar{r}) + \bar{r}_{\beta} (r_{t} - \bar{r})}{\sum_{t=1}^{T} (r_{\beta,t} - \bar{r}_{\beta})(r_{\beta,t} - \bar{r}_{\beta}) + \bar{r}_{\beta}(r_{\beta,t} - \bar{r}_{\beta})}$\\
+= $\beta = \frac{\sum_{t=1}^{T} (r_{\beta,t} - \bar{r}_{\beta})(r_{t} - \bar{r}) + 0}{\sum_{t=1}^{T} (r_{\beta,t} - \bar{r}_{\beta})^{2} + 0}$\\
+= $\beta = \frac{\sum_{t=1}^{T} (r_{t} - \bar{r})(r_{\beta,t} - \bar{r}_{\beta})}{\sum_{t=1}^{T} (r_{\beta,t} - \bar{r}_{\beta})^{2}}$\\
+\pagebreak
+
+Problem Number 2)\\
+Using the equation: $\sigma_{\hat{y}}^{2} = E(Y - \hat{Y})^{2}$\\
+Since, $\hat{Y} = E(Y) + \frac{cov(X,Y)}{var(X)}(X - E(X))$\\
+$\sigma_{\hat{y}}^{2} = E(Y - (E(Y) + \frac{cov(X,Y)}{var(X)}(X - E(X))))^{2}$\\
+$\sigma_{\hat{y}}^{2} = E(Y - E(Y) - \frac{cov(X,Y)}{var(X)}(X - E(X)))^{2}$\\
+We also know that $\rho_{X,Y} = \frac{\sigma_{X,Y}}{\sigma_{X} \sigma_{Y}}$ and $\frac{cov(X,Y)}{var(X)} = \frac{\sigma_{X,Y}}{\sigma_{X} \sigma_{X}} = \frac{\sigma_{X,Y}}{\sigma_{X} \sigma_{Y}} * \frac{\sigma_{Y}}{\sigma_{X}}$\\
+Thus,\\
+$\sigma_{\hat{y}}^{2} = E[(Y - E(Y)) - \rho_{X,Y} \frac{\sigma_{Y}}{\sigma_{X}} (X - E(X))]^{2}$\\
+$\sigma_{\hat{y}}^{2} = E[(Y - E(Y))^{2} - 2(\rho_{X,Y} \frac{\sigma_{Y}}{\sigma_{X}} (X - E(X)) (Y - E(Y))) + (\rho_{X,Y}^{2} \frac{\sigma_{Y}^{2}}{\sigma_{X}^{2}} (X - E(X))^{2})]$\\
+Since $\sigma_{X}^{2} = E(X - \bar{X})^{2} = E(X - E(X))^{2}$\\
+$\sigma_{\hat{y}}^{2} = \sigma_{Y}^{2} - 2\rho_{X,Y} \frac{\sigma_{Y}}{\sigma_{X}} E[(X - E(X)) (Y - E(Y))] + \rho_{X,Y}^{2} \frac{\sigma_{Y}^{2}}{\sigma_{X}^{2}} \sigma_{X}^{2}$\\
+$\sigma_{\hat{y}}^{2} = \sigma_{Y}^{2} - 2\rho_{X,Y} \frac{\sigma_{Y}}{\sigma_{X}} cov(X,Y) + \rho_{X,Y}^{2} \frac{\sigma_{Y}^{2}}{\sigma_{X}^{2}} \sigma_{X}^{2}$\\
+If we let $cov(X,Y) = \rho_{X,Y} \sigma_{x} \sigma_{Y}$,\\
+$\sigma_{\hat{y}}^{2} = \sigma_{Y}^{2} - 2\rho_{X,Y} \frac{\sigma_{Y}}{\sigma_{X}} \rho_{X,Y} \sigma_{x} \sigma_{Y} + \rho_{X,Y}^{2} \frac{\sigma_{Y}^{2}}{\sigma_{X}^{2}} \sigma_{X}^{2}$\\
+$\sigma_{\hat{y}}^{2} = \sigma_{Y}^{2} - 2\rho_{X,Y}^{2} \sigma_{Y}^{2} + \rho_{X,Y}^{2} \sigma_{Y}^{2}$\\
+$\sigma_{\hat{y}}^{2} = \sigma_{Y}^{2} (1 - \rho_{X,Y}^{2})$\\
+Thus we find that as the correlation between X and Y $(\rho_{X,Y})$ increases, the mean squared error decreases. If correlation were to equal 1, the error would even be zero. Thus we see a better predictor.\\
+
+Problem Number 3)\\
+$\Omega_{ij} = cov(r_{it},r_{jt})$ deriving this further:\\
+$cov(r_{it},r_{jt}) = E[((\alpha_{i} + \beta_{i} r_{m,t} + \varepsilon_{it}) - E(\alpha_{i} + \beta_{i} r_{m,t} + \varepsilon_{it})) ((\alpha_{j} + \beta_{j} r_{m,t} + \varepsilon_{jt}) - E(\alpha_{j} + \beta_{j} r_{m,t} + \varepsilon_{jt}))]$\\
+$cov(r_{it},r_{jt}) = E[((\alpha_{i} + \beta_{i} r_{m,t} + \varepsilon_{it}) - \alpha_{i} - \beta_{i} - \varepsilon_{it} E(r_{m,t})) ((\alpha_{j} + \beta_{j} r_{m,t} + \varepsilon_{jt}) - \alpha_{j} - \beta_{j} - \varepsilon_{jt} E(r_{m,t}))]$\\
+$cov(r_{it},r_{jt}) = E[(\beta_{i} r_{m,t} - \beta_{i} E(r_{m,t})) (\beta_{j} r_{m,t} - \beta_{j} E(r_{m,t}))]$\\
+$cov(r_{it},r_{jt}) = E[(\beta_{i} r_{m,t})(\beta_{j} r_{m,t}) - (\beta_{i} r_{m,t})(\beta_{j} E(r_{m,t})) - (\beta_{i} E(r_{m,t}))(\beta_{j} r_{m,t}) + (\beta_{i} \beta_{j} E(r_{m,t}))^{2}]$\\
+$cov(r_{it},r_{jt}) = \beta_{i} \beta_{j} E[(r_{m,t})^{2} - 2 (r_{m,t})(E(r_{m,t})) + (E(r_{m,t}))^{2}]$\\
+$cov(r_{it},r_{jt}) = \beta_{i} \beta_{j} E[[(r_{m,t}) - (E(r_{m,t}))][(r_{m,t}) - (E(r_{m,t}))]]$\\
+$cov(r_{it},r_{jt}) = \beta_{i} \beta_{j} \sigma_{m}^{2}$\\
+
+$cov(r_{it},r_{it}) = var(r_{it})$\\
+$cov(r_{it},r_{it}) = var(\alpha_{i} + \beta_{i} r_{m,t} + \varepsilon_{it})$\\
+since $var(\alpha_{i}) = 0$ and $cov(r_{m,t},\varepsilon_{i,t}) = 0$\\
+
+$cov(r_{it},r_{it}) = var(\beta_{i} r_{m,t}) + var(\varepsilon_{it})$\\
+$cov(r_{it},r_{it}) = \beta_{i}^{2} var(r_{m,t}) + var(\varepsilon_{it})$\\
+$cov(r_{it},r_{it}) = \beta_{i}^{2} \sigma_{m}^{2} + \sigma_{\varepsilon,i}^{2}$\\
+and we know $D_{ii} = \sigma_{\varepsilon,j}^{2} = var(\varepsilon_{it})$\\
+
+Thus, $\Omega = \sigma_{m}^{2} \beta \beta^{'} + D$
+
+
+
+
+
+Problem Number 4) a.\\
+$\bar{r}_{M} = 23 \%, r_{f} = 7 \%, \sigma_{M} = 32 \%$\\
+$\bar{r} = r_{f} + \frac{\bar{r}_{M} - r_{f}}{\sigma_{M}} \sigma$\\
+$\bar{r} = 0.07 + \frac{0.23 - 0.07}{0.32} \sigma$\\
+$\bar{r} = 0.07 + 0.5 \sigma$\\
+
+Problem Number 4) b.\\
+i)\\
+$0.39 = 0.07 + 0.5 \sigma$\\
+$\sigma = 0.64$\\
+
+ii)\\
+$w_{1} \bar{r}_{1} + w_{2} \bar{r}_{2} = 0.39$\\
+$w_{1} 0.07 + (1 - w_{1}) 0.23 = 0.39$\\
+$w_{1} 0.07 + 0.23 - w_{1} 0.23 = 0.39$\\
+$w_{1} (0.07 - 0.23) = 0.39 - 0.23$\\
+$w_{1} (-0.16) = 0.16$\\
+$w_{1} = -1$\\
+$w_{2} = 2$\\
+Thus, we should borrow $\$$1,000 at the risk free rate and invest all $\$$2,000 in the market portfolio\\
+
+Problem Number 4) c.\\
+$\$$300 (1.07) + $\$$700 (1.23) = $\$$1,182\\
+
+Problem Number 5) a.\\
+First we need to find the individual return for each asset according to the CAPM.\\
+$\bar{r}_{i} = \beta_{1} (\bar{r}_{M} - r_{f}) + r_{f}$\\
+$r_{f} = 0.05, \bar{r}_{M} = 0.12, \sigma_{M} = 0.18$\\
+Asset A: $\bar{r}_{A} = 1.10 (0.12 - 0.05) + 0.05$ $ = 12.7 \%$\\
+Asset B: $\bar{r}_{B} = 0.80 (0.12 - 0.05) + 0.05$ $ = 10.6 \%$\\
+Asset C: $\bar{r}_{C} = 1.00 (0.12 - 0.05) + 0.05$ $ = 12.0 \%$\\
+
+$\bar{r}_{p} = w_{1} \bar{r}_{1} + w_{2} \bar{r}_{2} + w_{3} \bar{r}_{3}$\\
+$\bar{r}_{p} = 0.20 * 0.127 + 0.50 * 0.106 + 0.12 * 0.30 = 11.44\%$\\
+
+Problem Number 5) b.\\
+The overall variance of the portfolio is $\sigma_{p}^{2} = b^{2} \sigma_{f}^{2} + \sigma_{e}^{2}$\\
+$b = 1.1*0.2 + 0.8*0.5 + 1*0.3 = 0.92$\\
+$b^{2} = 0.8464$\\
+$\sigma_{f} = 0.18$\\
+$\sigma_{f}^{2} = 0.0324$\\
+$\sigma_{e}^{2} = 0.07^{2}*0.2^{2} + 0.023^{2}*.5^{2} + 0.01^{2}*0.3^{2} = 0.00033725$\\
+$\sigma_{p}^{2} = 0.8464*0.0324 + 0.00033725 = 0.02776061$\\
+take the square root to obtain $\sigma$\\
+$\sigma_{p} = 0.1666152$\\
+Thus, $\sigma_{p} = 16.7 \%$\\
+
+Problem Number 6)\\
+Using the formula $\bar{r}_{i} = \lambda_{0} + \sum_{j = 1}^{m} b_{ij} \lambda_{j}$ we can get two equations with two unknowns\\
+$\bar{r}_{1} = \lambda_{0} + b_{11} \lambda_{1} + b_{12} \lambda_{2}$\\
+$\bar{r}_{2} = \lambda_{0} + b_{21} \lambda_{1} + b_{22} \lambda_{2}$\\
+$\lambda_{0}$ equals the $r_{f}$ and using the information given:\\
+$0.15 = 0.10 + 2 \lambda_{1} + \lambda_{2}$\\
+$0.20 = 0.10 + 3 \lambda_{1} + 4 \lambda_{2}$\\
+Taking equation 2 - equation 1 yields:\\
+$0.05 = \lambda_{1} + 3 \lambda_{2}$\\
+Thus, $\lambda_{1} = 0.05 - 3 \lambda_{2}$\\
+Plugging this back into the original equation:\\
+$0.15 = 0.10 + 2 (0.05 - 3 \lambda_{2}) + \lambda_{2}$\\
+$0.15 = 0.20 - 5 \lambda_{2}$\\
+$5 \lambda_{2} = 0.05$\\
+$\lambda_{2} = 0.01$\\
+Plugging in this, we find:\\
+$\lambda_{1} = 0.05 - 3 (0.01)$\\
+$\lambda_{1} = 0.02$\\
+Thus, $\lambda_{0} = 0.10$, $\lambda_{1} = 0.02$, $\lambda_{2} = 0.01$\\
+
+\end{document}
