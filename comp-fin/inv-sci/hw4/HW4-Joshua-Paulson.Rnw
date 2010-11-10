@@ -1,0 +1,113 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{fullpage}
+\usepackage[parfill]{parskip}
+\usepackage{graphicx}
+\usepackage{multirow}
+
+\pdfpagewidth 8.5in
+\pdfpageheight 11in
+
+\title{AMATH 500/STAT 591A: Homework 4}
+\author{Joshua Paulson}
+\date{10 - November - 2010}
+
+\begin{document}
+\maketitle{\textbf{}}
+Problem Number 1)\\
+
+Problem Number 2)\\
+Part 1\\
+$(1 + r)^{n} = 2$ to solve, take the natural log\\
+$ln(1 + r)^{n} = ln(2)$\\
+$n * ln(1 + r) = ln(2)$, solve for n\\
+$n = \frac{ln(2)}{ln(1 + r)}$\\
+given, we approximate $ln(2) \approx .69$ and $ln(1 + r) \approx r$ using the Taylor series linear approximation\\
+$n \approx \frac{.69}{r}$, and if we let $i = 100r$ then\\
+$n \approx \frac{69}{i}$\\
+
+Part 2\\
+$(1 + r)^{n} = 2$ to solve, take the natural log\\
+$ln(1 + r)^{n} = ln(2)$\\
+$n * ln(1 + r) = ln(2)$, solve for n\\
+$n = \frac{ln(2)}{ln(1 + r)}$\\
+if we use $ln(2) \approx .69$ and $ln(1 + r) \approx r - \frac{1}{2}r^{2}$ using the Taylor series quadratic approximation\\
+$n \approx \frac{.69}{r - \frac{1}{2}r^{2}}$, and if we let $r \approx 0.08$ then\\
+$n \approx \frac{0.69}{0.08 - \frac{1}{2}(0.08)^{2}}$\\
+$n \approx 8.984375$\\
+considering $i = 100r$, and $r \approx 0.08$, $\Rightarrow$ $i = 8$\\
+if we multiply both sides by i, we have\\
+$ni \approx 8.984375i \approx 71.875$, solving for n\\
+$n \approx \frac{71.875}{i}$, Thus we see $n \approx \frac{72}{i}$\\
+
+Problem Number 3)\\
+Using the equation $f = \frac{(1 + s_{2})^{2}}{1 + s_{1}} - 1$ we find the following when $s_{1} = 6.3 \%$ and $s_{2} = 6.9 \%$\\
+$f = \frac{(1 + 0.069)^{2}}{1 + 0.063} - 1$\\
+$f = 0.07503387$ or $7.50 \%$\\
+
+\pagebreak
+Problem Number 4) \hspace{3mm}
+Using RStudio, we get the same results from the lecture slides:
+<<Prob4, include=TRUE, echo=TRUE>>=
+rates <- c(6.875, 5.5, 4.625, 4.625, 4.375)
+maturity <- c("8/15/1994","2/15/1995","8/15/1995", "2/15/1996", "8/15/1996") 
+#maturity <- as.Date(date, format = '%m/%d/%Y')
+price <- c(101+20/32,101+18/32,100+21/32,100+12/32,99+15/32)
+table1 <- as.data.frame(cbind(rates,maturity,price))
+table1
+
+d.1 <- price[1]/(rates[1]/2 + 100)
+d.2 <- (price[2] - rates[2]/2*(d.1))/(rates[2]/2 + 100)
+d.3 <- (price[3] - rates[3]/2*(d.1) - rates[3]/2*(d.2))/(rates[3]/2 + 100)
+d.4 <- (price[4] - rates[4]/2*(d.1) - rates[4]/2*(d.2) - rates[4]/2*(d.3))/(rates[4]/2 + 100)
+d.5 <- (price[5] - rates[5]/2*(d.1) - rates[5]/2*(d.2) - rates[5]/2*(d.3) - rates[5]/2*(d.4))/(rates[5]/2 + 100)
+
+s.1 <- 2*(((rates[1]/2 + 100) / price[1])^(1/1) - 1)
+s.2 <- 2*(((rates[2]/2 + 100) / (price[2] - rates[2]/2*(d.1)))^(1/2) - 1)
+s.3 <- 2*(((rates[3]/2 + 100) / (price[3] - rates[3]/2*(d.1) - rates[3]/2*(d.2)))^(1/3) - 1)
+s.4 <- 2*(((rates[4]/2 + 100) / (price[4] - rates[4]/2*(d.1) - rates[4]/2*(d.2) - rates[4]/2*(d.3)))^(1/4) - 1)
+s.5 <- 2*(((rates[5]/2 + 100) / (price[5] - rates[5]/2*(d.1) - rates[5]/2*(d.2) - rates[5]/2*(d.3) - rates[5]/2*(d.4)))^(1/5) - 1)
+
+t <- seq(0.5,2.5, by=0.5)
+d.t <- round(c(d.1, d.2, d.3, d.4, d.5), 4)
+s.t <- round((c(s.1, s.2, s.3, s.4, s.5)*100),4)
+table2 <- as.data.frame(cbind(t,d.t,s.t))
+table2
+
+@
+
+Problem Number 5)\\
+We use the formula, $F = \frac{S}{d(0,M)} + \sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)}$\\
+We have the current price to be \$412,  storage costs, \$2 per year, the interest rate of 9\% per year, compounded quarterly, and we want the future price for delivery in 9 months.\\
+Also, since the interest rate is constant, we can more easily compute the forward rates by spreading the interest uniformily over the period. Since we have quarterly compounding, we take $0.09/4 = 0.0225$ and then the discount rate is $1/(1+0.0225)$ or the reciprocal quarterly discount rate is $1.0225$\\
+Since 9 months is equivilant to 3 quarters:\\
+$F = \$412*(1.0225)^3  + \sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)}$\\
+Now we see that the cost of storage per quarter is $2/4 = \$0.5$ and this is a constant inside of the summation so can be taken outside\\
+$F = \$412*(1.0225)^3  + \$0.5 * \sum_{k=0}^{M-1} \frac{1}{d(k,M)}$\\
+Now since the interest rate is constant over each quarter we can easily finish the computation:\\
+$F = \$412*(1.0225)^3  + \$0.5 * [1.0225^3 + 1.0225^2 + 1.0225^1]$\\
+$F = \$412*(1.0225)^3  + \$0.5 * [3.137036]$\\
+$F = \$440.4404  + \$1.568518$\\
+$F = \$442.0089$\\
+The theoretical forward price of gold for delivery in 9 months is \$442.01\\
+
+Problem Number 6)\\
+We have the situation where F is less than that given by (10.2) Thus we will see the price rise and we first buy and go long one unit of a forward contact with forward price F. Next we 
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{4}{|l|}{Details of Arbitrage} \\
+\hline
+Time 0 action & Time 0 cost & Time k cost & Receipt at time M \\
+\hline
+Long 1 forward & 0 & 0 & -F \\
+Short 1 unit & -s & 0 & 0 \\
+Borrow asset & -c(0) & -c(k) & $\sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)}$ \\
+Lend \$\$ Invest cash flow & s & 0 & $\frac{S(0,M)}{d(0,M)}$ \\
+Buy 1 unit & c(0) & c(k) & 0 \\ \hline
+Total & 0 & 0 & $-F + \sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)} + \frac{S(0,M)}{d(0,M)}$ \\ \hline
+\end{tabular}
+
+\end{document}
