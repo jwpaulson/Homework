@@ -102,7 +102,7 @@ $F = \$442.0089$\\
 The theoretical forward price of gold for delivery in 9 months is \$442.01\\
 
 Problem Number 6)\\
-We have the situation where F is less than that given by (10.2) Thus we will see the price rise and we first buy and go long one unit of a forward contact with forward price F. Next we 
+We have the situation where F is less than that given by (10.2) Thus to see the arbitrage, we first buy and go long one unit of a forward contact with forward price F. Next we short 1 unit spot which delivers cash s at time zero. To execute this short, we borrow the asset and collect cash flows for the carrying costs. We then invest these cash flows by lending them out. Finally we need to buy one unit due to our forward and then return it as we orignially borrowed it. The table below, sums this up and shows the arbitrage.
 
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -112,9 +112,9 @@ Time 0 action & Time 0 cost & Time k cost & Receipt at time M \\
 \hline
 Long 1 forward & 0 & 0 & -F \\
 Short 1 unit & -s & 0 & 0 \\
-Borrow asset & -c(0) & -c(k) & $\sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)}$ \\
-Lend \$\$ Invest cash flow & s & 0 & $\frac{S(0,M)}{d(0,M)}$ \\
-Buy 1 unit & c(0) & c(k) & 0 \\ \hline
+Borrow asset & -c(0) & -c(k) & 0 \\
+Lend \$\$ Invest cash flow & c(0) & c(k) & $\sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)}$ \\
+Buy 1 unit & s & 0 & $\frac{S(0,M)}{d(0,M)}$ \\ \hline
 Total & 0 & 0 & $-F + \sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)} + \frac{S(0,M)}{d(0,M)}$ \\ \hline
 \end{tabular}
 
