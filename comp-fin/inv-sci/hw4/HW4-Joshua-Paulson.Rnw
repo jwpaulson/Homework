@@ -47,7 +47,6 @@ Using the equation $f = \frac{(1 + s_{2})^{2}}{1 + s_{1}} - 1$ we find the follo
 $f = \frac{(1 + 0.069)^{2}}{1 + 0.063} - 1$\\
 $f = 0.07503387$ or $7.50 \%$\\
 
-\pagebreak
 Problem Number 4) \hspace{3mm}
 Using RStudio, we get the same results from the lecture slides:
 <<Prob4, include=TRUE, echo=TRUE>>=
@@ -72,10 +71,19 @@ s.5 <- 2*(((rates[5]/2 + 100) / (price[5] - rates[5]/2*(d.1) - rates[5]/2*(d.2) 
 
 t <- seq(0.5,2.5, by=0.5)
 d.t <- round(c(d.1, d.2, d.3, d.4, d.5), 4)
-s.t <- round((c(s.1, s.2, s.3, s.4, s.5)*100),4)
+s.t <- round((c(s.1, s.2, s.3, s.4, s.5)*100),3)
 table2 <- as.data.frame(cbind(t,d.t,s.t))
 table2
 
+f.1 <- s.1
+f.2 <- (((1+(s.2/2))^2*(1))/(1+(f.1/2))-1)*2
+f.3 <- ((((1+(s.3/2))^(2*(1.5)))/((1+(f.1/2))*(1+(f.2/2))))-1)*2
+f.4 <- ((((1+(s.4/2))^(2*(2)))/((1+(f.1/2))*(1+(f.2/2))*(1+(f.3/2))))-1)*2
+f.5 <- ((((1+(s.5/2))^(2*(2.5)))/((1+(f.1/2))*(1+(f.2/2))*(1+(f.3/2))*(1+(f.4/2))))-1)*2
+
+f.t <- round((c(f.1, f.2, f.3, f.4, f.5)*100), 3)
+table3 <- as.data.frame(cbind(t,f.t,s.t))
+table3
 @
 
 Problem Number 5)\\
