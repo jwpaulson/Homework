@@ -5,7 +5,6 @@
 \usepackage{fullpage}
 \usepackage[parfill]{parskip}
 \usepackage{graphicx}
-\usepackage{multirow}
 
 \pdfpagewidth 8.5in
 \pdfpageheight 11in
@@ -15,8 +14,56 @@
 \date{10 - November - 2010}
 
 \begin{document}
-\maketitle{\textbf{}}
+\maketitle{\textbf{}}\
 Problem Number 1)\\
+Part a)\\
+Looking at the non-parametric estimate of value-at-rist (VaR), we first order the returns from smallest to largest $r_{(1)} < r_{(2)} < ... < r_{(n)}$ and taking losses to be positive, we work with the negative of the returns. Further, we can establish X as one set of returns $(-r_{(11)}, -r_{(12)}, ..., -r_{(1n)})$ and Y as another set of returns $(-r_{(21)}, -r_{(22)}, ..., -r_{(2n)})$. Additionally we interpret $X > Y$ and thus $-r_{1i} > -r_{2i}$ for $i, ..., n$.\\
+
+The $VaR_{r} (\gamma) = -r_{(\lfloor n \gamma \rfloor)}$ and coresponds to the specified cut off for the ordered returns. For example if we had 100 ordered returns and specificed the tail probability to be $\gamma = 0.05$ we would make the cut off at the 5th smallest return.
+
+For axiom P1, we see $\rho$ is simply a measurement of the losses and using VaR, we use the ordered returns and apply a scalar multiplier $\lambda$. Thus we must compute $VaR(\lambda x) =$\\
+$\rho (\lambda X) = VaR(\lambda x) =$ the set $(-\lambda r_{11}, -\lambda r_{12},...-\lambda r_{1n}) = -\lambda r_{n \gamma} = \lambda \rho (X)$\\
+The order has not changed and each individual asset is multiplied by the scalar $\lambda$ which can be extracted to show that as the loss is multiplied by the factor $\lambda$, the risk also increases by the same factor.\\
+
+For axiom P2, we are given that $X > Y$ and since the assets are ordered from least to greatest loss, we know that the loss of any individual x will be greater than the corresponding ordered y. This is as professor Martin mentioned in class that by lining each asset up, we see by choosing any asset $X_{k}$ for some k, the $y_{i} < x_{k}$ as shown in the below diagram.
+\begin{center}
+\includegraphics[width=5cm, trim=0 2mm 0 1cm, clip=TRUE]{question1.png}
+\end{center}
+Another way to look at it is that:\\
+$VaR(x) =$ the set $(-r_{11}, - r_{12},...- r_{1n}) = -r_{1 (\lfloor n \gamma \rfloor)}$ which equals the loss of x and is greater than \\
+$VaR(y) =$ the set $(-r_{21}, - r_{22},...- r_{2n}) = -r_{2 (\lfloor n \gamma \rfloor)}$ which equals the loss of y.\\
+The order has not changed are the axiom holds.
+
+For axiom P4, we add cash into the portfolio:\\
+$VaR(x - \alpha) =$ the set $(-r_{11} - \alpha, - r_{12} - \alpha,...- r_{1n} - \alpha) = -r_{ (\lfloor n \gamma \rfloor)} - \alpha$\\
+The order has not changed are the axiom holds.\\
+
+part b)\\
+Now dealing with ETL, we have the ordered returns and take the average of the losses below the threshold given from VaR.\\
+
+Thus for axiom P1 is is the same as in part a, now with the following:\\
+$ETL(\lambda x) =$ the ETL of the set $(-\lambda r_{11}, -\lambda r_{12},...-\lambda r_{1n}) = - \lambda \frac{1}{(\lfloor n \gamma \rfloor)} \sum_{i = 1}^{(\lfloor n \gamma \rfloor)} r_{i} = \lambda ETL(x)$\\
+
+For P2 we have the same as in part a, now with the following:\\
+$ETL(x) =$ the ETL of the set $(-r_{11}, - r_{12},...- r_{1n}) = - \frac{1}{(\lfloor n \gamma \rfloor)} \sum_{i = 1}^{(\lfloor n \gamma \rfloor)} r_{i}$ which equals the loss of x and is greater than \\
+$ETL(y) =$ the ETL of the set $(-r_{21}, - r_{22},...- r_{2n}) = - \frac{1}{(\lfloor n \gamma \rfloor)} \sum_{i = 1}^{(\lfloor n \gamma \rfloor)} r_{i}$ which equals the loss of y.\\
+Also since we are given that the statistic of x is larger than the statistic of y with probabiliy 1, this implies that the empirical ETL(x) will be greater than the ETL(y).\\
+
+For P4 we have the same as in part a, now with the following:\\
+$ETL(x - \alpha) =$ the ETL of the set $(-r_{11} - \alpha, - r_{12} - \alpha,...- r_{1n} - \alpha) = - \frac{1}{(\lfloor n \gamma \rfloor)} \sum_{i = 1}^{(\lfloor n \gamma \rfloor)} r_{i} - \alpha$\\
+
+Part c)\\
+To show that the sample standard deviation fails to satisfy P2 and P4, we look at $\sigma = E(r - E(r))$:\\
+P2:\\
+If we for example let $x = y + a$ we would expect $x > y$ to hold since, $y + a > y$ However:\\
+$\sigma = E(y + a - E(y + a)) = E(y + a - E(y) + E(a)) = E(y - E(y)) = E(x - E(x))$\\
+This proves that P2 fails since adding the constant a, we see the two loss functions are equivilant.\\
+
+P4:\\
+Looking at adding cash to decrease risk,\\
+$E((x- \alpha) - E(x - \alpha)) = E(x - \alpha - E(x) + E(\alpha)) = E(x - E(x))$\\
+$E(x - E(x)) - \alpha = E(x - E(x)) - \alpha$\\
+Thus we also see this fails since they are not equivilant.\\
 
 Problem Number 2)\\
 Part 1\\
@@ -102,7 +149,7 @@ $F = \$442.0089$\\
 The theoretical forward price of gold for delivery in 9 months is \$442.01\\
 
 Problem Number 6)\\
-We have the situation where F is less than that given by (10.2) Thus to see the arbitrage, we first buy and go long one unit of a forward contact with forward price F. Next we short 1 unit spot which delivers cash s at time zero. To execute this short, we borrow the asset and collect cash flows for the carrying costs. We then invest these cash flows by lending them out. Finally we need to buy one unit due to our forward and then return it as we orignially borrowed it. The table below, sums this up and shows the arbitrage.
+We have the situation where F is less than that given by (10.2) Thus to see the arbitrage, we first buy and go long one unit of a forward contact with forward price F. Next we borrow the asset at cost s to be able to short 1 unit spot which pays s. When executing this short and borrowing the asset, we collect cash flows at each period for the costs of storage. We then invest these cash flows at the risk free rate. This will be an investment at each period and give us the return at the final period. Finally we need to buy one asset to return even on our original borrowing of the asset. Thus we now have total cost equal to zero and still have a profit from the invested cash flows and the gain from selling high and buying low. The table below, sums this up and shows the arbitrage.
 
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -111,11 +158,11 @@ We have the situation where F is less than that given by (10.2) Thus to see the 
 Time 0 action & Time 0 cost & Time k cost & Receipt at time M \\
 \hline
 Long 1 forward & 0 & 0 & -F \\
-Short 1 unit & -s & 0 & 0 \\
-Borrow asset & -c(0) & -c(k) & 0 \\
-Lend \$\$ Invest cash flow & c(0) & c(k) & $\sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)}$ \\
-Buy 1 unit & s & 0 & $\frac{S(0,M)}{d(0,M)}$ \\ \hline
-Total & 0 & 0 & $-F + \sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)} + \frac{S(0,M)}{d(0,M)}$ \\ \hline
+Borrow asset & s & 0 & 0 \\
+Short 1 spot unit & -s & 0 & $\frac{S(0,M)}{d(0,M)}$ \\
+Invest c(k) in $r_{f}$ & c(0) & c(k) & $\sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)}$ \\
+Earn storage & -c(0) & -c(k) & 0 \\ \hline
+Total & 0 & 0 & $-F + \frac{S(0,M)}{d(0,M)} + \sum_{k=0}^{M-1} \frac{c(k)}{d(k,M)}$ \\ \hline
 \end{tabular}
 
 \end{document}
